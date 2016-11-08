@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class Solution {
 
-	//Fail for testcase #2
+	//Fail for testcase #2 - clear 
 	public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int n = in.nextInt();
@@ -25,14 +25,14 @@ public class Solution {
             }
         }
         
-        Set<Integer> factorSet = getFactorSet(maximumFactor);
+        Set<Integer> factorSet = getFactorSet(maximumFactor, b);
         int result = factorSet.size();
         
         Iterator<Integer> iter = factorSet.iterator();
         while(iter.hasNext()){
         	int factor = iter.next();
         	for(int i = 0; i < n; i++){
-        		if(factor % a[i] != 0){
+        		if(factor % a[i] != 0 ){
         			result --;
         			break;
         		}
@@ -43,12 +43,18 @@ public class Solution {
         
     }
 	
-	public static Set<Integer> getFactorSet(int number){
+	public static Set<Integer> getFactorSet(int number, int[] b){
 		Set<Integer> factorSet = new HashSet<>();
-		for(int i = 1; i <= Math.sqrt(number); i++){
-			if(number % i == 0){
+		for(int i = 1; i <= number; i++){
+			boolean flag = true;
+			for(int j = 0; j < b.length; j++){
+				if(b[j] % i != 0){
+					flag = false;
+					break;
+				}
+			}
+			if(flag){
 				factorSet.add(i);
-				factorSet.add(number / i);
 			}
 		}
 		
