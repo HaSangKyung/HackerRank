@@ -25,7 +25,6 @@ public class Solution {
 		 if(root == (long)root && (root - 1) % 2 == 0){
 			 return (long)(root-1)/2;
 		 }
-		 
 		 return -1;
 	 }
 	 
