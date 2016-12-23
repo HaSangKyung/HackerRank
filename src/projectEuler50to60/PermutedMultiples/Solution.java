@@ -9,18 +9,10 @@ public class Solution {
 		 
 		 Scanner scanner = new Scanner(System.in);
 		 
-		 /*int N = scanner.nextInt();
+		 int N = scanner.nextInt();
 		 int K = scanner.nextInt();
 		 
-		 System.out.println(getSolution(N, K));*/
-		 	int n = scanner.nextInt();
-	        
-	        String symbol = "#";
-	        
-	        for(int i = 1; i <= n; i++){
-	            System.out.println(String.format("%"+n+"s",symbol));
-	            symbol+="#";
-	        }
+		 System.out.println(getSolution(N, K));
 		 
 	    }
 	 
