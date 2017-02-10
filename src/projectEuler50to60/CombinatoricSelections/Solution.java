@@ -1,17 +1,17 @@
 package projectEuler50to60.CombinatoricSelections;
 
 import java.math.BigInteger;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 public class Solution {
-	static Map<Integer, BigInteger> factorialMap = new HashMap<>();
+	static SortedMap<Integer, BigInteger> factorialMap = new TreeMap<>();
 	
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 		factorialMap.put(0, new BigInteger("1"));
-		
+		factorialMap.put(1, new BigInteger("1"));
 		int N = scanner.nextInt();
 		long K = scanner.nextLong();
 		System.out.println(getSolution(N, K));
@@ -48,40 +48,20 @@ public class Solution {
 	}
 	
 	public static BigInteger checkMaxCombination(int n, int r){
-		BigInteger bunja = null;
-		BigInteger bunmo = null;
-		
-		if( (n-r) > r ){
-			bunja = getFactorial(n, n-r+1);
-			bunmo = getFactorial(r);
-		}else{
-			bunja = getFactorial(n, r+1);
-			bunmo = getFactorial(n-r);
-		}
-		
-		return bunja.divide(bunmo);
+		return getFactorial(n).divide(getFactorial(r).multiply(getFactorial(n-r)));
 	}
 	
 	public static BigInteger getFactorial(int target){
 		if(factorialMap.get(target) != null){
 			return factorialMap.get(target); 
+		}else{
+			int lastKey = factorialMap.lastKey();
+			BigInteger lastValue = factorialMap.get(lastKey);
+			for(int i = lastKey+1; i<= target; i++){
+				lastValue = lastValue.multiply(new BigInteger(String.valueOf(i)));
+				factorialMap.put(i, lastValue);
+			}
+			return lastValue;
 		}
-		
-		BigInteger result = new BigInteger("1");
-		for(int i = 2; i <= target; i++){
-			result = result.multiply(new BigInteger(String.valueOf(i)));
-		}
-		factorialMap.put(target, result);
-		return result;
 	}
-	
-	public static BigInteger getFactorial(int target, int start){
-		BigInteger result = new BigInteger("1");
-		for(int i = start; i <= target; i++){
-			result = result.multiply(new BigInteger(String.valueOf(i)));
-		}
-		
-		return result;
-	}
-	
 }
